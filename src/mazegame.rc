@@ -1,0 +1,27 @@
+GLFW_ICON ICON "mazegame.ico"
+
+1 VERSIONINFO
+FILEVERSION     1,0,0,0
+PRODUCTVERSION  1,0,0,0
+BEGIN
+  BLOCK "StringFileInfo"
+  BEGIN
+	//BLOCK "080904E4" 	// English UK
+    BLOCK "040904E4"	// English US
+    BEGIN
+	  VALUE "CompanyName", "raylibtech"
+      VALUE "FileDescription", "Maze Game | My Maze Game"
+      VALUE "FileVersion", "1.0"
+      VALUE "InternalName", "mazegame"
+      VALUE "LegalCopyright", "(c) 2024 raylibtech"
+      //VALUE "OriginalFilename", "mazegame.exe"
+      VALUE "Maze Game", "Maze Game"
+      VALUE "ProductVersion", "1.0"
+    END
+  END
+  BLOCK "VarFileInfo"
+  BEGIN
+	//VALUE "Translation", 0x809, 1252	// English UK
+    VALUE "Translation", 0x409, 1252	// English US
+  END
+END
