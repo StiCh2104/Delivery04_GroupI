@@ -76,7 +76,7 @@ int main(void)
     mazePosition.y = (GetScreenHeight() - texMaze.height * MAZE_SCALE) / 2;
 
     // Define player position and size
-    Rectangle player = { mazePosition.x + 1 * MAZE_SCALE + 2, mazePosition.y + 1 * MAZE_SCALE + 2, 4, 4 };
+    Rectangle player = { mazePosition.x + 10 * MAZE_SCALE + 2, mazePosition.y + 10 * MAZE_SCALE + 2, 4, 4 };
 
     // Camera 2D for 2d gameplay mode
     // TODO: [2p] Initialize camera parameters as required
@@ -84,7 +84,7 @@ int main(void)
     camera2d.target = (Vector2){ player.x, player.y };
     camera2d.offset = (Vector2){ screenWidth / 2, screenHeight / 2 };
     camera2d.rotation = 0.0f;
-    camera2d.zoom = 1.0f;
+    camera2d.zoom = 10.0f;
 
     // Mouse selected cell for maze editing
     Point selectedCell = { 0 };
@@ -94,8 +94,14 @@ int main(void)
     bool mazeItemPicked[MAX_MAZE_ITEMS] = { 0 };
 
     // Define textures to be used as our "biomes"
-    Texture texBiomes[4] = { 0 };
-    texBiomes[0] = LoadTexture("resources/maze_atlas01.png");
+    Texture2D texBiomes[4] = 
+    {
+        LoadTexture("Resources/MazeAtlas01.png"),
+        LoadTexture("Resources/MazeAtlas02.png"),
+        LoadTexture("Resources/MazeAtlas03.png"),
+        LoadTexture("Resources/MazeAtlas04.png"),
+    };
+    //texBiomes[0] = LoadTexture("Resources/MazeAtlas01.png");
     // TODO: Load additional textures for different biomes
     int currentBiome = 0;
 
@@ -215,14 +221,29 @@ int main(void)
         // TODO: [1p] Multiple maze biomes supported
         // Implement changing between the different textures to be used as biomes
         // NOTE: For the 3d model, the current selected texture must be applied to the model material  
-
+        if(IsKeyPressed(KEY_ONE))
+        {
+            currentBiome = 0;
+        } 
+        if(IsKeyPressed(KEY_TWO))
+        {
+            currentBiome = 1;
+        } 
+        if(IsKeyPressed(KEY_THREE))
+        {
+            currentBiome = 2;
+        } 
+        if(IsKeyPressed(KEY_FOUR))
+        {
+            currentBiome = 3;
+        } 
         //----------------------------------------------------------------------------------
 
         // Draw
         //----------------------------------------------------------------------------------
         BeginDrawing();
 
-        ClearBackground(RAYWHITE);
+        ClearBackground(DARKGRAY);
 
         if (currentMode == 0) // Game mode
         {
@@ -230,7 +251,24 @@ int main(void)
             BeginMode2D(camera2d);
 
             // TODO: Draw maze walls and floor using current texture biome 
-            DrawTextureEx(texMaze, mazePosition, 0.0f, MAZE_SCALE, WHITE);
+            for (int y = 0; y < imMaze.height; y++)
+            {
+                for (int x = 0; x < imMaze.width; x++)
+                {
+                    if (ColorIsEqual(GetImageColor(imMaze, x, y), WHITE))
+                    {
+                        DrawTexturePro(texBiomes[currentBiome], (Rectangle){ 0, texBiomes[currentBiome].height/2, texBiomes[currentBiome].width/2, texBiomes[currentBiome].height/2 },
+                            (Rectangle){ mazePosition.x + x*MAZE_SCALE, mazePosition.y + y*MAZE_SCALE, MAZE_SCALE, MAZE_SCALE }, 
+                            (Vector2){ 0 }, 0.0f, WHITE);
+                    }
+                    else
+                    {
+                        DrawTexturePro(texBiomes[currentBiome], (Rectangle){ texBiomes[currentBiome].width/2, texBiomes[currentBiome].height/2, texBiomes[currentBiome].width/2, texBiomes[currentBiome].height/2 },
+                            (Rectangle){ mazePosition.x + x*MAZE_SCALE, mazePosition.y + y*MAZE_SCALE, MAZE_SCALE, MAZE_SCALE }, 
+                            (Vector2){ 0 }, 0.0f, WHITE);
+                    }
+                }
+            }
             // TODO: Draw player rectangle or sprite at player position
             DrawRectangleRec(player, BLUE);
             // TODO: Draw maze items 2d (using sprite texture?)
