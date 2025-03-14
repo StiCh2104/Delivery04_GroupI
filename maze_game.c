@@ -97,10 +97,10 @@ int main(void)
     // TODO: Load additional textures for different biomes
     Texture2D texBiomes[4] = 
     {
-        LoadTexture("Resources/MazeAtlas01.png"),
-        LoadTexture("Resources/MazeAtlas02.png"),
-        LoadTexture("Resources/MazeAtlas03.png"),
-        LoadTexture("Resources/MazeAtlas04.png"),
+        LoadTexture("resources/maze_atlas01.png"),
+        LoadTexture("resources/maze_atlas02.png"),
+        LoadTexture("resources/maze_atlas03.png"),
+        LoadTexture("resources/maze_atlas04.png"),
     };
     int currentBiome = 0;
 
