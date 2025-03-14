@@ -272,7 +272,24 @@ int main(void)
             // TODO: Draw player rectangle or sprite at player position
             DrawRectangleRec(player, BLUE);
             // TODO: Draw maze items 2d (using sprite texture?)
-
+            for (int y = 0; y < imMaze.height; y++)
+            {
+                for (int x = 0; x < imMaze.width; x++)
+                {
+                    if (ColorIsEqual(GetImageColor(imMaze, x, y), RED))
+                    {
+                        Vector2 itemPosition = {mazePosition.x + x * MAZE_SCALE + MAZE_SCALE / 2, mazePosition.y + y * MAZE_SCALE + MAZE_SCALE / 2};
+                        DrawCircleV(itemPosition, MAZE_SCALE / 4, RED);
+                    }
+                    //Draw the End
+                    if (ColorIsEqual(GetImageColor(imMaze, x, y), GREEN))
+                    {
+                        Vector2 endPosition = {mazePosition.x + x * MAZE_SCALE + MAZE_SCALE / 2, mazePosition.y + y * MAZE_SCALE + MAZE_SCALE / 2};
+                        DrawRectangleV(endPosition, (Vector2){ MAZE_SCALE / 2, MAZE_SCALE / 2 }, GREEN);
+                    }
+                }
+            }
+            
             EndMode2D();
             DrawText(TextFormat("Score: %d", score), screenWidth - 190, 20, 30, BLACK);
             if (playerHasWon)
@@ -298,8 +315,16 @@ int main(void)
         }
         // Draw required UI info
         DrawText("[R] GENERATE NEW RANDOM SEQUENCE", 10, 36, 10, LIGHTGRAY);
-        DrawText(TextFormat("SEED: %i", seed), 10, 56, 10, YELLOW);
-        DrawText("[SPACE] TOGGLE MODE: EDITOR/GAME", 10, GetScreenHeight() - 20, 10, WHITE);
+        DrawText("[ESC] QUIT GAME", 10, 56, 10, LIGHTGRAY);
+        DrawText(TextFormat("SEED: %i", seed), 10, 76, 10, YELLOW);
+        
+        //CONTROLS
+        DrawText("[AWDS/Arrow keys] PLAYER MOVEMENT", 10, GetScreenHeight() - 70, 10, WHITE);
+        DrawText("[SPACE] TOGGLE MODE: EDITOR/GAME", 10, GetScreenHeight() - 60, 10, WHITE);
+        DrawText("[LEFT CLICK] CREATE PATH ", 10, GetScreenHeight() - 50, 10, WHITE);
+        DrawText("[RIGHT CLICK] CREATE WALL ", 10, GetScreenHeight() - 40, 10, WHITE);
+        DrawText("[MIDDLE CLICK] ADD ITEM ", 10, GetScreenHeight() - 30, 10, WHITE);
+        DrawText("[CTRL + RIGHT CLICK] SET END ", 10, GetScreenHeight() - 20, 10, WHITE);
 
         DrawFPS(10, 10);
 
