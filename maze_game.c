@@ -94,6 +94,7 @@ int main(void)
     bool mazeItemPicked[MAX_MAZE_ITEMS] = { 0 };
 
     // Define textures to be used as our "biomes"
+    // TODO: Load additional textures for different biomes
     Texture2D texBiomes[4] = 
     {
         LoadTexture("Resources/MazeAtlas01.png"),
@@ -101,8 +102,6 @@ int main(void)
         LoadTexture("Resources/MazeAtlas03.png"),
         LoadTexture("Resources/MazeAtlas04.png"),
     };
-    //texBiomes[0] = LoadTexture("Resources/MazeAtlas01.png");
-    // TODO: Load additional textures for different biomes
     int currentBiome = 0;
 
     // TODO: Define all variables required for game UI elements (sprites, fonts...)
@@ -217,7 +216,7 @@ int main(void)
             UpdateTexture(texMaze, imMaze.data);
             UnloadImageColors(pixels);
         }
-
+        
         // TODO: [1p] Multiple maze biomes supported
         // Implement changing between the different textures to be used as biomes
         // NOTE: For the 3d model, the current selected texture must be applied to the model material  
@@ -237,6 +236,7 @@ int main(void)
         {
             currentBiome = 3;
         } 
+        
         //----------------------------------------------------------------------------------
 
         // Draw
@@ -319,7 +319,7 @@ int main(void)
         DrawText(TextFormat("SEED: %i", seed), 10, 76, 10, YELLOW);
         
         //CONTROLS
-        DrawText("[AWDS/Arrow keys] PLAYER MOVEMENT", 10, GetScreenHeight() - 70, 10, WHITE);
+        DrawText("[AWDS/ARROW KEYS] PLAYER MOVEMENT", 10, GetScreenHeight() - 70, 10, WHITE);
         DrawText("[SPACE] TOGGLE MODE: EDITOR/GAME", 10, GetScreenHeight() - 60, 10, WHITE);
         DrawText("[LEFT CLICK] CREATE PATH ", 10, GetScreenHeight() - 50, 10, WHITE);
         DrawText("[RIGHT CLICK] CREATE WALL ", 10, GetScreenHeight() - 40, 10, WHITE);
